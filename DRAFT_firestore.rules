@@ -1,0 +1,120 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 0. Global safety net (Default Deny)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ===================================
+    // GLOBAL HELPERS
+    // ===================================
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email in ['samimolla629@gmail.com', 'mr074770@gmail.com'] ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')
+      );
+    }
+
+    // ===================================
+    // VALIDATIONS
+    // ===================================
+    
+    function isValidUser(data) {
+      return data.uid == request.auth.uid &&
+             (data.email == null || (data.email is string && data.email.size() <= 200)) &&
+             data.name is string && data.name.size() <= 100 &&
+             data.role in ['user', 'admin', 'guest'] &&
+             data.keys().hasAll(['uid', 'name', 'role']) && 
+             data.keys().size() <= 15;
+    }
+
+    function isValidOrder(data) {
+      return data.userId == request.auth.uid &&
+             data.items is list && data.items.size() > 0 &&
+             data.total is number && data.total >= 0 &&
+             data.status in ['Placed', 'Packing', 'Out for Delivery', 'Delivered', 'Failed'] &&
+             data.keys().hasAll(['userId', 'items', 'total', 'status']) &&
+             data.keys().size() <= 20;
+    }
+
+    // ===================================
+    // COLLECTIONS
+    // ===================================
+
+    match /users/{userId} {
+      // Hardened read: User can only read their own profile unless admin
+      allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      
+      // Hardened write: Strict schema validation
+      allow create: if isSignedIn() && request.auth.uid == userId && isValidUser(incoming());
+      
+      allow update: if isSignedIn() && (request.auth.uid == userId || isAdmin()) && (
+        // Action: User Profile Update
+        (incoming().diff(existing()).affectedKeys().hasOnly(['name', 'email', 'updatedAt', 'phone', 'address']) && 
+         incoming().uid == existing().uid &&
+         (isAdmin() || incoming().role == existing().role)) ||
+        // Action: Admin Override
+        isAdmin()
+      );
+      
+      allow delete: if isAdmin();
+    }
+
+    match /collections/{collectionId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /orders/{orderId} {
+      allow create: if isSignedIn() && isValidOrder(incoming());
+      
+      // Secure list/get queries
+      allow list: if isSignedIn() && (isAdmin() || resource.data.userId == request.auth.uid);
+      allow get: if isSignedIn() && (isAdmin() || resource.data.userId == request.auth.uid);
+      
+      allow update: if isAdmin() || (
+        // User Action: Cancel Order
+        isSignedIn() && resource.data.userId == request.auth.uid && 
+        incoming().diff(existing()).affectedKeys().hasOnly(['status']) &&
+        incoming().status == 'Cancelled' &&
+        existing().status == 'Placed'
+      );
+      
+      allow delete: if isAdmin();
+    }
+
+    match /wishlists/{userId} {
+      allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow write: if isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Connection test document
+    match /test/connection {
+      allow read: if true;
+    }
+  }
+}
