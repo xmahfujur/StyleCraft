@@ -1,0 +1,117 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "email", "role"]
+    },
+    "collection": {
+      "title": "Collection",
+      "description": "Marketing collections like Summer Collection",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "bannerImage": { "type": "string" },
+        "description": { "type": "string" },
+        "isFeatured": { "type": "boolean" },
+        "priority": { "type": "number" },
+        "metaTitle": { "type": "string" },
+        "metaDescription": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "slug", "bannerImage", "priority"]
+    },
+    "category": {
+      "title": "Category",
+      "description": "Product categories",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "parentCategoryId": { "type": "string" },
+        "icon": { "type": "string" },
+        "priority": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "slug", "priority"]
+    },
+    "product": {
+      "title": "Product",
+      "description": "Clothing product details",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "discountedPrice": { "type": "number" },
+        "images": { "type": "array" },
+        "collectionId": { "type": "string" },
+        "categoryId": { "type": "string" },
+        "tags": { "type": "array" },
+        "stock": { "type": "number" },
+        "salesCount": { "type": "number" },
+        "rating": { "type": "number" },
+        "reviewsCount": { "type": "number" },
+        "isFeatured": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "slug", "price", "images", "collectionId", "categoryId", "stock"]
+    },
+    "order": {
+      "title": "Order",
+      "description": "Customer order record",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "customerInfo": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "email": { "type": "string" },
+            "phone": { "type": "string" },
+            "address": { "type": "string" }
+          }
+        },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["Placed", "Processing", "Shipped", "Delivered", "Cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "items", "total", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "User profiles"
+    },
+    "/collections/{collectionId}": {
+      "schema": "collection",
+      "description": "Marketing collections"
+    },
+    "/categories/{categoryId}": {
+      "schema": "category",
+      "description": "Product categories"
+    },
+    "/products/{productId}": {
+      "schema": "product",
+      "description": "Product catalog"
+    },
+    "/orders/{orderId}": {
+      "schema": "order",
+      "description": "Customer orders"
+    }
+  }
+}
