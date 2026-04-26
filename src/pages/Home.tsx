@@ -132,11 +132,11 @@ export default function Home() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroImages = [
-    "https://www.morshedmart.com/slider-1.png?dpl=dpl_FuneRQY5byyxYRnai9an2zNeRPbx",
-    "https://www.morshedmart.com/slider-2.png?dpl=dpl_FuneRQY5byyxYRnai9an2zNeRPbx",
-    "https://www.morshedmart.com/slider-3.png?dpl=dpl_FuneRQY5byyxYRnai9an2zNeRPbx",
-    "https://images.unsplash.com/photo-1470309864661-68328b2cd0a5?auto=format&fit=crop&q=80&w=2070",
-    "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=1974"
+    "https://i.ibb.co.com/gn66fy6/Whats-App-Image-2026-04-25-at-10-45-18-PM.jpg",
+    "https://i.ibb.co.com/p6bwK6yt/Whats-App-Image-2026-04-25-at-10-45-18-PM-1.jpg",
+    "https://i.ibb.co.com/dJxVgZMR/Whats-App-Image-2026-04-25-at-10-45-19-PM.jpg",
+    "https://i.ibb.co.com/FLhNrK59/Whats-App-Image-2026-04-25-at-10-45-20-PM.jpg",
+    "https://i.ibb.co.com/sdm0sSz1/Whats-App-Image-2026-04-25-at-10-45-19-PM-2.jpg"
   ];
 
   useEffect(() => {
