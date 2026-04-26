@@ -132,9 +132,9 @@ export default function Home() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroImages = [
-    "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80&w=2070",
-    "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2070",
-    "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80&w=2071",
+    "https://www.morshedmart.com/slider-1.png?dpl=dpl_FuneRQY5byyxYRnai9an2zNeRPbx",
+    "https://www.morshedmart.com/slider-2.png?dpl=dpl_FuneRQY5byyxYRnai9an2zNeRPbx",
+    "https://www.morshedmart.com/slider-3.png?dpl=dpl_FuneRQY5byyxYRnai9an2zNeRPbx",
     "https://images.unsplash.com/photo-1470309864661-68328b2cd0a5?auto=format&fit=crop&q=80&w=2070",
     "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=1974"
   ];
@@ -238,7 +238,7 @@ export default function Home() {
             </span>
             <span className="w-1 h-1 rounded-full bg-white/20 hidden md:block" />
             <span className="flex items-center gap-2">
-              Easy Returns
+             3 Day's Easy Returns with Conditions
             </span>
             <span className="w-1 h-1 rounded-full bg-white/20 hidden md:block" />
             <span className="flex items-center gap-2">
