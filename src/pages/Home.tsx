@@ -282,7 +282,7 @@ export default function Home() {
 
       {/* 3. 🛍️ FEATURED PRODUCTS (ABOVE THE FOLD ON MOBILE) */}
       <section id="featured" className="max-w-7xl mx-auto px-4 py-20 px-4">
-        <div className="mb-12 flex flex-col md:flex-row justify-between items-end gap-4">
+        <div className="mb-12 flex flex-col md:flex-row justify-between items-left gap-4">
           <div>
             <span className="text-red-600 text-[10px] md:text-xs font-black tracking-[0.4em] uppercase mb-2 block">Trending Now</span>
             <h2 className="text-3xl md:text-5xl font-serif tracking-tighter text-black uppercase font-black italic">BEST SELLERS</h2>
