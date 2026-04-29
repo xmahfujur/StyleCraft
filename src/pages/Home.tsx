@@ -135,11 +135,11 @@ export default function Home() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroImages = [
-    "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80&w=2070",
-    "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2070",
-    "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80&w=2071",
-    "https://images.unsplash.com/photo-1470309864661-68328b2cd0a5?auto=format&fit=crop&q=80&w=2070",
-    "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=1974"
+    "https://res.cloudinary.com/dh0txjnqv/image/upload/q_auto/f_auto/v1777486608/WhatsApp_Image_2026-04-25_at_10.45.19_PM_lkwoiu.jpg",
+    "https://res.cloudinary.com/dh0txjnqv/image/upload/q_auto/f_auto/v1777486608/WhatsApp_Image_2026-04-25_at_10.45.18_PM_1_as5gbh.jpg",
+    "https://res.cloudinary.com/dh0txjnqv/image/upload/q_auto/f_auto/v1777486608/WhatsApp_Image_2026-04-25_at_10.45.19_PM_1_hfv1ck.jpg",
+    "https://res.cloudinary.com/dh0txjnqv/image/upload/q_auto/f_auto/v1777486608/WhatsApp_Image_2026-04-25_at_10.45.21_PM_qgou0m.jpg",
+    "https://res.cloudinary.com/dh0txjnqv/image/upload/q_auto/f_auto/v1777486608/WhatsApp_Image_2026-04-25_at_10.45.19_PM_2_bremry.jpg"
   ];
 
   useEffect(() => {
